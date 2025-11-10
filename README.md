@@ -1,29 +1,60 @@
 # Local Static Site (Express)
 
-This project provides a minimal static website served on localhost using a tiny Express server.
+This project provides a **minimal static website** served locally using a tiny **Express.js** server.  
+It is also **fully client-side** and can be easily deployed to **GitHub Pages** or any static hosting platform.
 
-## Files
+---
 
-- `server.js` - Express server that serves static files from `public/` 
-- `public/index.html` - The main page.
-- `public/styles.css` - Basic styling.
-- `package.json` - Project manifest (includes `express` dependency).
+## 🗂 Project Structure
 
-## Change the file directory in CMD or Powershell to where the files are stored.
+project/
+│
+├── server.js # Express server to serve static files
+├── package.json # Project manifest (includes express dependency)
+└── public/
+├── index.html # Main webpage
+├── styles.css # Basic styling
+└── script.js # (Optional) Client-side JavaScript
 
-## Run 
+---
+##  Run Locally
 
-1. Install dependencies:
+### 1. Change directory
+Open **CMD** or **PowerShell** and navigate to your project folder:
+```bash
+cd path/to/project
 
-```powershell
+```
+
+---
+### 2. Install dependencies
+
+Install Express using npm:
+
+```bash
 npm install
 ```
 
-2. Start the server:
+---
+### 3. Start the server
 
-```powershell
+Run the project:
+
+```bash
 npm start
 ```
 
-3. Open your browser to: `http://localhost:3000`
+---
+### 4. Open in browser
+
+Visit:
+
+```bash
+http://localhost:3000
+```
+
+
+
+
+
 
