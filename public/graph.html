@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Floyd–Warshall Demo</title>
+  <link rel="stylesheet" href="/graph.css" />
+</head>
+<body>
+  <div class="top-buttons">
+    <button id="downloadBtn">Download</button>
+    <button onclick="openLearn()">Learn</button>
+    <button onclick="openHelp()">Help</button>
+    <button onclick="openDevelopedBy()">Developed by</button>
+  </div>
+
+  <!-- Help Modal -->
+  <div id="helpModal" class="modal">
+    <div class="modal-content" style="width: 800px;">
+      <span class="close-button" onclick="closeHelp()">&times;</span>
+      <h2>Help: How to Use Floyd-Warshall Demo</h2>
+      <div class="help-content">
+        <section class="help-section">
+          <h3>Project Overview</h3>
+          <p>This is an interactive implementation of the Floyd-Warshall algorithm for finding shortest paths between all pairs of vertices in a weighted directed graph.</p>
+        </section>
+
+        <section class="help-section">
+          <h3>How to Input Your Graph</h3>
+          <ol>
+            <li><strong>Set Number of Nodes:</strong>
+              <ul>
+                <li>Enter the number of vertices in your graph in the "Number of nodes" field</li>
+                <li>Click "Apply" to generate the input matrix</li>
+              </ul>
+            </li>
+            <li><strong>Enter Matrix Values:</strong>
+              <ul>
+                <li>Fill the adjacency matrix with edge weights</li>
+                <li>Use "INF" or leave empty for no direct edge</li>
+                <li>Diagonal should be 0 (distance from a node to itself)</li>
+              </ul>
+            </li>
+            <li><strong>Optional Settings:</strong>
+              <ul>
+                <li>Vertex names: Enter custom names separated by commas (e.g., A,B,C,D)</li>
+                <li>Edge type: Choose between directed or undirected graphs</li>
+                <li>Weight mode: Select weighted or unweighted edges</li>
+                <li>Allow negative: Toggle negative weight allowance</li>
+              </ul>
+            </li>
+          </ol>
+        </section>
+
+        <section class="help-section">
+          <h3>Running the Algorithm</h3>
+          <ol>
+            <li>After entering your graph, click "Run Floyd-Warshall"</li>
+            <li>The algorithm will generate:
+              <ul>
+                <li>Distance Matrix: Shows shortest path distances</li>
+                <li>Next Matrix: Used for path reconstruction</li>
+                <li>Graph Visualization: Visual representation of your graph</li>
+              </ul>
+            </li>
+          </ol>
+        </section>
+
+        <section class="help-section">
+          <h3>Understanding Results</h3>
+          <ul>
+            <li><strong>Distance Matrix:</strong>
+              <ul>
+                <li>Each cell (i,j) shows the shortest distance from vertex i to j</li>
+                <li>Red cells indicate negative cycles (if present)</li>
+                <li>Gray "INF" cells mean no path exists</li>
+              </ul>
+            </li>
+            <li><strong>Finding Specific Paths:</strong>
+              <ul>
+                <li>Use the "From" and "To" dropdowns to select vertices</li>
+                <li>Click "Show Shortest Path" to highlight the path</li>
+                <li>The path and its total distance will be displayed</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section class="help-section">
+          <h3>Additional Features</h3>
+          <ul>
+            <li><strong>Random Graph:</strong> Generate a random graph for testing</li>
+            <li><strong>Clear:</strong> Reset the input matrix</li>
+            <li><strong>Import/Export:</strong>
+              <ul>
+                <li>Import matrix from .txt/.csv files</li>
+                <li>Export results to CSV format</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Learn Modal -->
+  <div id="learnModal" class="modal">
+    <div class="modal-content" style="width: 800px;">
+      <span class="close-button" onclick="closeLearn()">&times;</span>
+      <h2>Learn Floyd-Warshall Algorithm</h2>
+      <div class="learn-content">
+        <section class="learn-section">
+          <h3>Project Materials from Textbook</h3>
+          <div class="textbook-content">
+            <h4>Floyd-Warshall Algorithm Overview</h4>
+            <p>The Floyd-Warshall algorithm is a dynamic programming approach for finding shortest paths between all pairs of vertices in a weighted graph, including graphs with negative edge weights (but no negative cycles).</p>
+            
+            <!-- Extended lecture content: Floyd-Warshall (DP) -->
+            <div class="lecture-content">
+              <h4>Floyd–Warshall (Detailed DP Explanation)</h4>
+              <p>This section contains a detailed dynamic-programming derivation and explanation of the Floyd–Warshall algorithm (adapted from course notes).</p>
+
+              <p>Problem: All Pairs Shortest Paths. Given a weighted graph G=(V,E,w) (weights may be negative but no negative cycles), compute the shortest-path distance between every ordered pair of vertices u,v in V.</p>
+
+              <p>Idea: Order the vertices arbitrarily as v1,v2,...,vn. Let M[i][j][k] be the length of the shortest path from vi to vj that is allowed to use only intermediate vertices from the set {v1,...,vk} (that is, vertices on the path other than the endpoints must come from that set). Our goal is M[i][j][n].</p>
+
+              <p>Base case: With k = 0 no intermediate vertices are allowed, so M[i][j][0] is simply the direct edge weight w(vi,vj) (or +INF if no edge). The diagonal M[i][i][0] = 0.</p>
+
+              <p>Recurrence: When adding vertex vk, either the shortest i→j path does not use vk, in which case the best length is M[i][j][k-1], or it does use vk, in which case the path splits as i→k concatenated with k→j where both subpaths only use vertices from {v1..vk-1}. Thus</p>
+
+              <pre>M[i][j][k] = min( M[i][j][k-1], M[i][k][k-1] + M[k][j][k-1] )</pre>
+
+              <p>By iterating k from 1..n and applying this update for all i,j we compute all-pairs shortest distances. This yields the classic O(n^3) time algorithm.</p>
+
+              <p>Algorithm (conceptual):</p>
+              <pre>for i = 1..n:
+  for j = 1..n:
+    dist[i][j] = w(i,j)   # base (k = 0)
+
+for k = 1..n:
+  for i = 1..n:
+    for j = 1..n:
+      dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+            </pre>
+
+              <p>Correctness sketch: Use induction on k. For each k, the DP value M[i][j][k] gives the shortest i→j path whose internal vertices lie in {v1..vk}. Either the true shortest such path avoids vk (handled by M[i][j][k-1]) or it uses vk and splits at vk into two optimal subpaths (handled by M[i][k][k-1] + M[k][j][k-1]). Taking the minimum covers both possibilities.</p>
+
+              <p>Complexity: Three nested loops over n give O(n^3) time. Space is O(n^2) if we maintain only the current distance matrix (we can overwrite in place).</p>
+
+              <p>Notes and example: Running the recurrence builds the distances progressively allowing more intermediate vertices; after k = n all possible intermediates are allowed and the matrix contains final shortest-path lengths. The algorithm also supports path reconstruction using a "next"/"via" matrix to remember intermediate choices.</p>
+            </div>
+
+            <h4>Key Concepts</h4>
+            <ul>
+              <li>Dynamic Programming approach to find shortest paths between all pairs of vertices</li>
+              <li>Handles negative edge weights (but not negative cycles)</li>
+              <li>Time complexity: O(V³) where V is the number of vertices</li>
+              <li>Space complexity: O(V²) for storing the distance matrix</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="learn-section">
+          <h3>How We Built This Project</h3>
+          <div class="implementation-details">
+            <h4>Implementation Steps</h4>
+            <ol>
+              <li>Created an interactive web interface for matrix input</li>
+              <li>Implemented the core Floyd-Warshall algorithm with path reconstruction</li>
+              <li>Added visualization using SVG for graph representation</li>
+              <li>Included features for:
+                <ul>
+                  <li>Dynamic matrix size adjustment</li>
+                  <li>Random graph generation</li>
+                  <li>Path highlighting</li>
+                  <li>Export functionality</li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="learn-section">
+          <h3>Algorithm Visualization</h3>
+          <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/4NQ3HnhyNfQ" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </section>
+
+        <section class="learn-section">
+          <h3>References</h3>
+            <div class="references">
+            <ul>
+              <li><a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm" target="_blank">Floyd-Warshall Algorithm - Wikipedia</a></li>
+              <li><a href="https://www.geeksforgeeks.org/floyd-warshall-algorithm-dp-16/" target="_blank">GeeksforGeeks - Floyd Warshall Algorithm</a></li>
+              <li><a href="https://www.cs.toronto.edu/~lalla/373s16/notes/APSP.pdf?utm_source=chatgpt.com" target="_blank" rel="noopener">Lalla Mouatadid — APSP (Floyd–Warshall) notes</a></li>
+              <li>Introduction to Algorithms (CLRS) - Chapter 25.2</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Developed By Modal -->
+  <div id="developedByModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeDevelopedBy()">&times;</span>
+      <h2>Developed by</h2>
+      <div class="team-members">
+        <div class="member">
+          <img src="/images/24BCE5512.jpg" alt="Member 1">
+          <div class="member-info">
+            <p class="reg-no">24BCE5512</p>
+            <p class="member-name">Dinesh Kumar Anandan</p>
+          </div>
+        </div>
+        <div class="member">
+          <img src="/images/24BCE5515.jpg" alt="Member 2">
+          <div class="member-info">
+            <p class="reg-no">24BCE5515</p>
+            <p class="member-name">Dhanwanth Binu</p>
+          </div>
+        </div>
+      </div>
+      <div class="professor-section">
+        <div class="member" style="margin-top:24px;">
+          <img src="/images/Dr. Swaminathan Annadurai.jpg" alt="Dr. Swaminathan Annadurai">
+          <div class="member-info">
+            <p class="professor-name" style="font-size:1.1em;font-weight:bold;color:#1e40af;margin:8px 0 0 0;">Dr. Swaminathan Annadurai</p>
+            <p style="font-size:0.95em;color:#374151;margin:0;opacity:0.9;">Professor & Guide</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <header>
+    <h1>Floyd–Warshall — All-Pairs Shortest Paths</h1>
+    <p>Enter an adjacency matrix (use INF or an empty cell for no direct edge). Diagonal should be 0.</p>
+  </header>
+
+  <main>
+    <section class="inputs">
+      <label>Number of nodes: <input id="nodeCount" type="number" min="1" value="4"></label>
+      <button id="applySize">Apply</button>
+      <button id="randomFill">Random Graph</button>
+      <button id="runFW">Run Floyd–Warshall</button>
+      <button id="clear">Clear</button>
+
+      <div class="extra-controls">
+        <label>Vertex names (comma-separated):<br>
+          <input id="vertexNames" type="text" placeholder="A,B,C,D" />
+        </label>
+        <label>Edge type:
+          <select id="edgeType"><option value="directed">Directed</option><option value="undirected">Undirected</option></select>
+        </label>
+        <label>Weight mode:
+          <select id="weightMode"><option value="weighted">Weighted</option><option value="unweighted">Unweighted (1)</option></select>
+        </label>
+        <label><input id="allowNegative" type="checkbox"> Allow negative weights</label>
+      </div>
+
+      <div class="matrix-area">
+        <textarea id="matrixInput" rows="8" cols="40"></textarea>
+      </div>
+
+      <div class="controls">
+        <label>From: <select id="fromNode"></select></label>
+        <label>To: <select id="toNode"></select></label>
+        <button id="showPath">Show Shortest Path</button>
+      </div>
+
+      <div class="io-controls">
+        <label>Import adjacency matrix (.txt/.csv): <input id="fileInput" type="file" accept=".txt,.csv,.json" /></label>
+        <button id="exportCsv">Export results (CSV)</button>
+      </div>
+    </section>
+
+    <section class="results">
+      <h2>Distance Matrix</h2>
+      <div id="distTable"></div>
+
+      <h2>Next Matrix (for path reconstruction)</h2>
+      <div id="nextTable"></div>
+
+      <h2>Path</h2>
+      <div id="pathResult">(no path shown yet)</div>
+
+      <h2>Graph Visualization</h2>
+      <svg id="graphSvg" width="700" height="400"></svg>
+    </section>
+  </main>
+
+  <footer>
+    <p>Project 11.5 demo — Floyd–Warshall algorithm</p>
+  </footer>
+
+  <script src="/fw.js"></script>
+  <script src="/modal.js"></script>
+  <script src="/learn.js"></script>
+  <script src="/help.js"></script>
+  <script src="/download.js"></script>
+</body>
+</html>
