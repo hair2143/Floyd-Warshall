@@ -11,12 +11,14 @@ project/
 │
 ├── server.js # Express server to serve static files
 ├── package.json # Project manifest (includes express dependency)
-└── public/
 ├── index.html # Main webpage
 ├── styles.css # Basic styling
 └── script.js # (Optional) Client-side JavaScript
 
 ---
+
+## Run using github
+Open this link https://hair2143.github.io/Floyd-Warshall/ to run the Floyd-Warshall algorithim 
 ##  Run Locally
 
 ### 1. Change directory
