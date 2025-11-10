@@ -1,0 +1,15 @@
+{
+  "name": "local-static-site",
+  "version": "1.0.0",
+  "description": "Simple local static site served by Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "resize-images": "node scripts/resize-images.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  ,
+    "sharp": "^0.32.0"
+  }
+}

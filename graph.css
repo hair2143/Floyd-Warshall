@@ -1,0 +1,278 @@
+#matrixInput.negative-warning{border:2px solid #b91c1c;background:#fee2e2;color:#b91c1c;}
+body{font-family:Segoe UI, Roboto, Arial, sans-serif;margin:0;padding:0;background:#f5f7fb;color:#0f172a;overflow-y:auto}
+body.modal-open {
+  overflow: hidden;
+}
+header{background:#111827;color:#fff;padding:1rem}
+main{display:flex;gap:1rem;padding:1rem}
+.inputs{width:320px;background:#fff;padding:1rem;border-radius:8px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+.results{flex:1;background:#fff;padding:1rem;border-radius:8px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+.matrix-area textarea{width:100%;font-family:monospace}
+.controls{margin-top:0.5rem;display:flex;gap:0.5rem;align-items:center}
+#distTable table,#nextTable table{border-collapse:collapse}
+#distTable td,#distTable th,#nextTable td,#nextTable th{border:1px solid #e6e6e6;padding:6px;text-align:center}
+#distTable td.negcycle{color:#b91c1c;font-weight:bold;background:#fee2e2}
+#distTable td.inf{color:#64748b;font-weight:bold;background:#f1f5f9}
+#graphSvg{background:#ffffff;border-radius:6px;border:1px solid #e6e6e6}
+.button,button{cursor:pointer}
+
+.top-buttons {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.top-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #4a78e3;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.top-buttons button:hover {
+  background: #3b62c7;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+/* Modal content: no scroll for Developed By modal */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5vh auto;
+  padding: 20px 15px;
+  border: 1px solid #888;
+  width: 800px;
+  max-width: 90%;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Remove max-height and overflow for no scroll */
+}
+
+/* Only allow scroll for help/learn modals */
+#helpModal .modal-content,
+#learnModal .modal-content {
+  max-height: 90vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f0f0f0;
+}
+
+/* Styling the scrollbar for WebKit browsers */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+  border: 2px solid #f0f0f0;
+}
+
+.close-button {
+  position: absolute;
+  right: 15px;
+  top: 8px;
+  color: #aaa;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+/* Team members and professor section */
+.team-members {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.member {
+  text-align: center;
+  margin: 8px;
+}
+
+.professor-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.professor-name {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #1e40af;
+  margin: 8px 0 0 0;
+}
+
+.photo-placeholder {
+  width: 150px;
+  height: 150px;
+  background-color: #e2e8f0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  color: #64748b;
+  font-size: 0.9em;
+}
+
+.member img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto 8px auto;
+}
+
+.member-info {
+  margin-top: 10px;
+}
+
+.reg-no {
+  font-size: 1.1em;
+  color: #1f2937;
+  margin: 5px 0;
+}
+
+.member-name {
+  font-size: 0.95em;
+  color: #374151;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Learn Modal Specific Styles */
+.learn-content {
+  padding-right: 10px;
+}
+
+.learn-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+
+.learn-section h3 {
+  color: #1e40af;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.learn-section h4 {
+  color: #1e40af;
+  margin: 1rem 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.learn-section p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.learn-section ul, .learn-section ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.learn-section li {
+  margin: 0.3rem 0;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.references {
+  font-size: 0.9rem;
+}
+
+.references a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.references a:hover {
+  text-decoration: underline;
+}
+
+/* Help Modal Specific Styles */
+.help-section {
+  margin-bottom: 25px;
+  padding: 15px;
+  background: #f8fafc;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.help-section h3 {
+  color: #1e40af;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+}
+
+.help-section ul, 
+.help-section ol {
+  padding-left: 25px;
+  margin: 10px 0;
+}
+
+.help-section ul ul, 
+.help-section ol ul {
+  margin: 5px 0;
+}
+
+.help-section li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.help-section strong {
+  color: #1e40af;
+  font-weight: 600;
+}

@@ -1,0 +1,117 @@
+git <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Localhost Site</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="graph.css" />
+  <style>
+    /* Hide the top action buttons only on the local index page */
+    .top-buttons { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="top-buttons">
+    <button onclick="window.location.href='#download'">Download</button>
+    <button onclick="openLearn()">Learn</button>
+    <button onclick="window.location.href='#help'">Help</button>
+    <button onclick="openDevelopedBy()">Developed by</button>
+  </div>
+
+  <!-- Learn Modal -->
+  <div id="learnModal" class="modal">
+    <div class="modal-content" style="width: 800px;">
+      <span class="close-button" onclick="closeLearn()">&times;</span>
+      <h2>Learn Floyd-Warshall Algorithm</h2>
+      <div class="learn-content">
+        <section class="learn-section">
+          <h3>Project Materials from Textbook</h3>
+          <div class="textbook-content">
+            <h4>Floyd-Warshall Algorithm Overview</h4>
+            <p>The Floyd-Warshall algorithm is a dynamic programming approach for finding shortest paths between all pairs of vertices in a weighted graph, including graphs with negative edge weights (but no negative cycles).</p>
+            
+            <h4>Key Concepts</h4>
+            <ul>
+              <li>Dynamic Programming approach to find shortest paths between all pairs of vertices</li>
+              <li>Handles negative edge weights (but not negative cycles)</li>
+              <li>Time complexity: O(V³) where V is the number of vertices</li>
+              <li>Space complexity: O(V²) for storing the distance matrix</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="learn-section">
+          <h3>How We Built This Project</h3>
+          <div class="implementation-details">
+            <h4>Implementation Steps</h4>
+            <ol>
+              <li>Created an interactive web interface for matrix input</li>
+              <li>Implemented the core Floyd-Warshall algorithm with path reconstruction</li>
+              <li>Added visualization using SVG for graph representation</li>
+              <li>Included features for:
+                <ul>
+                  <li>Dynamic matrix size adjustment</li>
+                  <li>Random graph generation</li>
+                  <li>Path highlighting</li>
+                  <li>Export functionality</li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="learn-section">
+          <h3>Algorithm Visualization</h3>
+          <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/4NQ3HnhyNfQ" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </section>
+
+        <section class="learn-section">
+          <h3>References</h3>
+          <div class="references">
+            <ul>
+              <li><a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm" target="_blank">Floyd-Warshall Algorithm - Wikipedia</a></li>
+              <li><a href="https://www.geeksforgeeks.org/floyd-warshall-algorithm-dp-16/" target="_blank">GeeksforGeeks - Floyd Warshall Algorithm</a></li>
+              <li>Introduction to Algorithms (CLRS) - Chapter 25.2</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Developed By Modal -->
+  <div id="developedByModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeDevelopedBy()">&times;</span>
+      <h2>Developed by</h2>
+      <div class="team-members">
+        <div class="member">
+          <img src="images/24BCE5512.jpg" alt="Member 1">
+          <div class="member-info">
+            <p class="reg-no">24BCE5512</p>
+            <p class="member-name">Dinesh Kumar Anandan</p>
+          </div>
+        </div>
+        <div class="member">
+          <img src="images/24BCE5515.jpg" alt="Member 2">
+          <div class="member-info">
+            <p class="reg-no">24BCE5515</p>
+            <p class="member-name">Dhanwanth Binu</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <main>
+    <h1>Welcome to your local site</h1>
+    <p>This site is served locally at <code>http://localhost:3000</code>.</p>
+  <p><a href="graph.html">Open Floyd	6Warshall demo (Project 11.5)</a></p>
+  </main>
+  <script src="modal.js"></script>
+  <script src="learn.js"></script>
+  <script src="help.js"></script>
+</body>
+</html>
