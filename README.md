@@ -9,7 +9,9 @@ This project provides a minimal static website served on localhost using a tiny 
 - `public/styles.css` - Basic styling.
 - `package.json` - Project manifest (includes `express` dependency).
 
-## Run (PowerShell on Windows or Command Prompt)
+## Change the file directory in CMD or Powershell to where the files are stored.
+
+## Run 
 
 1. Install dependencies:
 
@@ -25,6 +27,3 @@ npm start
 
 3. Open your browser to: `http://localhost:3000`
 
-## Example API
-
-- `GET /api/hello` returns a small JSON object.
